@@ -11,6 +11,26 @@ import pansImg from '../Images/Pans.jpg';
 import kitchenUtensilsImg from '../Images/Kitchen Utensils.jpg';
 import yogaMattImg from '../Images/Yoga Matt.jpg';
 import waterbottleImg from '../Images/Waterbottle.jpg';
+import topsImg from '../Images/Tops.jpg';
+import shoesImg from '../Images/Shoes.jpg';
+import kitchenImg from '../Images/Kitchen.jpg';
+import improvementImg from '../Images/Home Improvement.jpg';
+import decorImg from '../Images/Home Decor.jpg';
+import beddingImg from '../Images/Bedding & Bath.jpg';
+import apronsImg from '../Images/Aprons.jpg';
+import toolsImg from '../Images/Home Tools.jpg';
+import glovesImg from '../Images/Gloves.jpg';
+import gamingImg from '../Images/Gaming.jpg';
+import smartphoneImg from '../Images/Smartphone.jpg';
+import makeupImg from '../Images/Makeup.jpg';
+import laptopsImg from '../Images/Laptops.jpg';
+import booksImg from '../Images/Books.jpg';
+import woodyImg from '../Images/Woody.jpg';
+import rubixImg from '../Images/Rubix Cube.jpg';
+import actionFiguresImg from '../Images/Action Figures.jpg';
+import pcGamingImg from '../Images/PC gaming.jpg';
+import pcImg from '../Images/PC.jpg';
+import coffeeImg from '../Images/Coffee.jpg';
 
 function MainPage({ addToCart }) {
   // --- INDIVIDUAL PRODUCT DATA ARCHITECTURE ---
@@ -39,30 +59,63 @@ function MainPage({ addToCart }) {
   });
 
   // --- FIXED BLUEPRINT MATRICES FROM LANDING TEMPLATE ---
-  const gridRow1 = [
-    { id: 1, title: "Get your game on", type: "single", img: "/images/Gaming.jpg", linkText: "Shop gaming" },
-    { id: 2, title: "Shop Fashion for less", type: "quad", items: [{ label: "Jeans", img: "/images/Jeans.jpg" }, { label: "Tops", img: "/images/Tops.jpg" }, { label: "Dresses", img: "/images/Dresses.jpg" }, { label: "Shoes", img: "/images/Shoes.jpg" }], linkText: "See all deals" },
-    { id: 3, title: "New arrivals under $50", type: "quad", items: [{ label: "Kitchen", img: "/images/Kitchen Utensils.jpg" }, { label: "Improvement", img: "/images/Home Improvement.jpg" }, { label: "Décor", img: "/images/Decor.jpg" }, { label: "Bedding", img: "/images/Bedding & Bath.jpg" }], linkText: "Shop Home" },
-    { id: 4, title: "Grilling must-haves", type: "quad", items: [{ label: "Pans", img: "/images/Pans.jpg" }, { label: "Aprons", img: "/images/Aprons.jpg" }, { label: "Tools", img: "/images/Home Tools.jpg" }, { label: "Gloves", img: "/images/Gloves.jpg" }], linkText: "Shop Father's Day" }
-  ];
+const gridRow1 = [
+  { id: 1, title: "Get your game on", type: "single", img: gamingImg, linkText: "Shop gaming" },
+  { 
+    id: 2, 
+    title: "Shop Fashion for less", 
+    type: "quad", 
+    items: [
+      { label: "Jeans", img: jeansImg },
+      { label: "Tops", img: topsImg },
+      { label: "Dresses", img: dressesImg },
+      { label: "Shoes", img: shoesImg }
+    ], 
+    linkText: "See more" 
+  },
+  { 
+    id: 3, 
+    title: "New arrivals under $50", 
+    type: "quad", 
+    items: [
+      { label: "Kitchen", img: kitchenImg },
+      { label: "Improvement", img: improvementImg },
+      { label: "Décor", img: decorImg },
+      { label: "Bedding", img: beddingImg }
+    ], 
+    linkText: "Shop now" 
+  },
+  { 
+    id: 4, 
+    title: "Grilling must-haves", 
+    type: "quad", 
+    items: [
+      { label: "Pans", img: pansImg },
+      { label: "Aprons", img: apronsImg },
+      { label: "Tools", img: toolsImg },
+      { label: "Gloves", img: glovesImg }
+    ], 
+    linkText: "Explore all" 
+  }
+];
 
-  const carouselItems1 = ["/images/Yoga Matt.jpg", "/images/Waterbottle.jpg", "/images/Skipping Rope.jpg", "/images/Running Shoes.jpg", "/images/Sports Watch.jpg", "/images/Sports Wear.jpg"];
+  const carouselItems1 = [yogaMattImg, waterbottleImg, skippingRopeImg];
 
-  const gridRow2 = [
-    { id: 5, title: "Wireless Tech", type: "quad", items: [{ label: "Smartphones", img: "/images/Smartphone.jpg" }, { label: "Watches", img: "/images/Watches.jpg" }, { label: "Headphones", img: "/images/Headphones.jpg" }, { label: "Tablets", img: "/images/Tablets.jpg" }], linkText: "Discover more" },
-    { id: 6, title: "Level up beauty", type: "quad", items: [{ label: "Makeup", img: "/images/Makeup.jpg" }, { label: "Brushes", img: "/images/Brushes.jpg" }, { label: "Sponges", img: "/images/Sponges.jpg" }, { label: "Mirrors", img: "/images/Mirrors.jpg" }], linkText: "See more" },
-    { id: 7, title: "Level up your PC here", type: "quad", items: [{ label: "Laptops", img: "/images/Laptops.jpg" }, { label: "PCs", img: "/images/PCs.jpg" }, { label: "Hard Drives", img: "/images/Hardrives.jpg" }, { label: "Monitors", img: "/images/Monitors.jpg" }], linkText: "Discover more" },
-    { id: 8, title: "Deals on top categories", type: "quad", items: [{ label: "Books", img: "/images/Books.jpg" }, { label: "Fashion", img: "/images/Fashion.jpg" }, { label: "PC", img: "/images/PC.jpg" }, { label: "Beauty", img: "/images/Beauty.jpg" }], linkText: "Discover more" }
-  ];
+const gridRow2 = [
+  { id: 5, title: "Wireless Tech", type: "quad", items: [{ label: "Smartphones", img: smartphoneImg }] },
+  { id: 6, title: "Level up beauty", type: "quad", items: [{ label: "Makeup", img: makeupImg }] },
+  { id: 7, title: "Level up your PC here", type: "quad", items: [{ label: "Laptops", img: laptopsImg }] },
+  { id: 8, title: "Deals on top categories", type: "quad", items: [{ label: "Books", img: booksImg }] }
+];
 
-  const carouselItems2 = ["/images/Woody.jpg", "/images/Rubix Cube.jpg", "/images/Action Figures.jpg", "/images/Pokemon Cards.jpg", "/images/Tv Game Catridge.jpg", "/images/Retro Games.jpg"];
+const carouselItems2 = [woodyImg, rubixImg, actionFiguresImg];
 
-  const gridRow3 = [
-    { id: 9, title: "Level up your gaming", type: "quad", items: [{ label: "PC gaming", img: "/images/PC gaming.jpg" }, { label: "Xbox", img: "/images/Xbox.jpg" }, { label: "PlayStation", img: "images/PlayStation.jpg" }, { label: "Nintendo Switch", img: "images/Nintendo Switch.jpg" }], linkText: "Shop latest" },
-    { id: 10, title: "Upgrade on Tech", type: "quad", items: [{ label: "PC", img: "images/PC.jpg" }, { label: "Wireless", img: "/images/Wireless.jpg" }, { label: "Software", img: "/images/Software.jpg" }, { label: "Home audio", img: "/images/Home Audio.jpg" }], linkText: "Shop all tech" },
-    { id: 11, title: "Finds for Home", type: "quad", items: [{ label: "Kitchen", img: "/images/Kitchen Accessories.jpg" }, { label: "Home Decor", img: "/images/Home Decor.jpg" }, { label: "Dining", img: "/images/Dining.jpg" }, { label: "Smart Home", img: "/images/Smart Home.jpg" }], linkText: "See more" },
-    { id: 12, title: "Home & Kitchen", type: "quad", items: [{ label: "Coffee", img: "/images/Coffee.jpg" }, { label: "Multi-Cookers", img: "/images/Multi cookers.jpg" }, { label: "Vacuums", img: "/images/Vaccuums.jpg" }, { label: "Irons", img: "/images/Irons.jpg" }], linkText: "Shop now" }
-  ];
+const gridRow3 = [
+  { id: 9, title: "Level up your gaming", type: "quad", items: [{ label: "PC gaming", img: pcGamingImg }] },
+  { id: 10, title: "Upgrade on Tech", type: "quad", items: [{ label: "PC", img: pcImg }] },
+  { id: 11, title: "Finds for Home", type: "quad", items: [{ label: "Kitchen", img: kitchenImg }] },
+  { id: 12, title: "Home & Kitchen", type: "quad", items: [{ label: "Coffee", img: coffeeImg }] }
+];
 
   return (
     <div className="main-page-scroller">
