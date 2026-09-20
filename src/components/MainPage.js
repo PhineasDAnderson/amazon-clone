@@ -3,20 +3,28 @@ import React, { useState } from 'react';
 //import './MainPage.css';
 import CategoryGrid from './CategoryGrid';
 import ProductCarousel from './ProductCarousel';
+import gamingHeadsetImg from '../Images/Gaming Headset.jpg';
+import dualShockImg from '../Images/Dual-shock Controllers.jpg';
+import jeansImg from '../Images/Jeans.jpg';
+import dressesImg from '../Images/Dresses.jpg';
+import pansImg from '../Images/Pans.jpg';
+import kitchenUtensilsImg from '../Images/Kitchen Utensils.jpg';
+import yogaMattImg from '../Images/Yoga Matt.jpg';
+import waterbottleImg from '../Images/Waterbottle.jpg';
 
 function MainPage({ addToCart }) {
   // --- INDIVIDUAL PRODUCT DATA ARCHITECTURE ---
   // Establishes a data registry of 8 items containing title, pricing metrics, asset paths, and ratings categories.
   const directProducts = [
-    { id: 101, title: "Sennheiser Wireless Gaming Headset - Pro Audio Noise Cancelling", price: 149.99, rating: 5, img: "/images/Gaming Headset.jpg", category: "Electronics" },
-    { id: 102, title: "DualShock 4 Wireless Controller for PlayStation - Jet Black", price: 59.99, rating: 4, img: "/images/Dual-shock Controllers.jpg", category: "Electronics" },
-    { id: 103, title: "Premium Casual Denim Slim-Fit Jeans (Vintage Indigo)", price: 34.95, rating: 4, img: "/images/Jeans.jpg", category: "Fashion" },
-    { id: 104, title: "Women's Summer Floral Accent Casual Dress", price: 28.50, rating: 5, img: "/images/Dresses.jpg", category: "Fashion" },
-    { id: 105, title: "Cast Iron Non-Stick Grilling Pan - Matte Black Finish", price: 42.00, rating: 4, img: "/images/Pans.jpg", category: "Kitchen" },
-    { id: 106, title: "Heavy Duty Kitchen Utensil Baking Set (12-Piece)", price: 19.99, rating: 5, img: "/images/Kitchen Utensils.jpg", category: "Kitchen" },
-    { id: 107, title: "Ergonomic High-Density Yoga Exercise Mat with Carrying Strap", price: 24.99, rating: 4, img: "/images/Yoga Matt.jpg", category: "Sports" },
-    { id: 108, title: "Stainless Steel Vacuum Insulated Sports Water Bottle (32oz)", price: 18.75, rating: 5, img: "/images/Waterbottle.jpg", category: "Sports" }
-  ];
+  { id: 101, title: "Sennheiser Wireless Gaming Headset - Pro Audio Noise Cancelling", price: 149.99, img: gamingHeadsetImg },
+  { id: 102, title: "DualShock 4 Wireless Controller for PlayStation - Jet Black", price: 59.99, img: dualShockImg },
+  { id: 103, title: "Premium Casual Denim Slim-Fit Jeans (Vintage Indigo)", price: 34.95, rating: 4.5, img: jeansImg },
+  { id: 104, title: "Women's Summer Floral Accent Casual Dress", price: 28.50, rating: 5, img: dressesImg },
+  { id: 105, title: "Cast Iron Non-Stick Grilling Pan - Matte Black Finish", price: 42.00, rating: 4, img: pansImg },
+  { id: 106, title: "Heavy Duty Kitchen Utensil Baking Set (12-Piece)", price: 19.99, rating: 5, img: kitchenUtensilsImg },
+  { id: 107, title: "Ergonomic High-Density Yoga Exercise Mat with Carrying Strap", price: 24.99, rating: 4.5, img: yogaMattImg },
+  { id: 108, title: "Stainless Steel Vacuum Insulated Sports Water Bottle (32oz)", price: 18.75, rating: 4.8, img: waterbottleImg }
+];
 
   // --- CUSTOM PRODUCT FILTERING STATES ---
   // Connects filter selection menus directly to active UI workspace views.

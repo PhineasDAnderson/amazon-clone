@@ -1,16 +1,22 @@
+import gamingImg from '../Images/Gaming.jpg';
+import toyImg from '../Images/Toy.jpg';
+import kitchenImg from '../Images/Kitchen.jpg';
+import fathersDayImg from '../Images/FathersDayDeal.jpg';
 // Imported React to use JSX and hooks
 import React, { useState, useEffect } from "react";
 // Imported CSS file for styling
 //import "./HeroCarousel.css";
+import bannerImg from '../Images/banner-image.jpg';
+import productImg from '../Images/product-image.png';
 
 // Defined the HeroCarousel component
 function HeroCarousel() {
   // Array of slides: each has an image path and a slogan
-  const slides = [
-    { src: "/images/Gaming.jpg", slogan: "Gaming Store – Upgrade your gear" },
-    { src: "/images/Toy.jpg", slogan: "Toys For Kids – Best Toys for fun times" },
-    { src: "/images/Kitchen.jpg", slogan: "Kitchen Specials – Top categories in appliances" },
-    { src: "/images/FathersDayDeal.jpg", slogan: "Father’s Day Deals – Save on gifts for Dad" },
+ const slides = [
+    { src: gamingImg, slogan: "Gaming Store - Upgrade your gear" },
+    { src: toyImg, slogan: "Toys For Kids - Best Toys for fun times" },
+    { src: kitchenImg, slogan: "Kitchen Specials - Top categories in appliances" },
+    { src: fathersDayImg, slogan: "Father's Day Deals - Save on gifts for Dad" },
   ];
 
   // State to track which slide is currently visible
