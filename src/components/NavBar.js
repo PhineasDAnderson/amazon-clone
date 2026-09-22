@@ -1,5 +1,6 @@
 // src/components/NavBar.js
 import React, { useState } from 'react';
+import amazonLogo from '../Images/amazon-logo.png';
 //import './NavBar.css';
 
 function NavBar({ cartCount, setView, darkMode, setDarkMode }) {
@@ -23,7 +24,7 @@ function NavBar({ cartCount, setView, darkMode, setDarkMode }) {
         {/* Bounding box wrapper designed to frame the logo image asset */}
         {/* Clicking this branding layer returns the user back to the primary shopfront dashboard */}
         <div className="nav-logo" onClick={() => setView('home')}>
-          <img src="/images/amazon-logo.png" alt="Amazon Logo" />
+         <img src={amazonLogo} alt="Amazon Logo" className="..." />
         </div>
         
         {/* Interactive location indicator block */}

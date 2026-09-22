@@ -27,10 +27,17 @@ import laptopsImg from '../Images/Laptops.jpg';
 import booksImg from '../Images/Books.jpg';
 import woodyImg from '../Images/Woody.jpg';
 import rubixImg from '../Images/Rubix Cube.jpg';
+import carToysImg from '../Images/Car Toys.jpg';
 import actionFiguresImg from '../Images/Action Figures.jpg';
 import pcGamingImg from '../Images/PC gaming.jpg';
 import pcImg from '../Images/PC.jpg';
 import coffeeImg from '../Images/Coffee.jpg';
+import skippingRopeImg from '../Images/Skipping Rope.jpg';
+import sportsWearImg from '../Images/Sports Wear.jpg';
+import sportsWatchImg from '../Images/Sports Watch.jpg';
+import retroGamesImg from '../Images/Retro Games.jpg';
+import pokemonCardsImg from '../Images/Pokemon Cards.jpg';
+import tvGameCatridgeImg from '../Images/Tv Game Catridge.jpg';
 
 function MainPage({ addToCart }) {
   // --- INDIVIDUAL PRODUCT DATA ARCHITECTURE ---
@@ -99,7 +106,16 @@ const gridRow1 = [
   }
 ];
 
-  const carouselItems1 = [yogaMattImg, waterbottleImg, skippingRopeImg];
+  const carouselItems1 = [
+  yogaMattImg, 
+  waterbottleImg, 
+  skippingRopeImg, 
+  shoesImg, 
+  glovesImg, 
+  toolsImg, 
+  sportsWearImg,
+  sportsWatchImg
+];
 
 const gridRow2 = [
   { id: 5, title: "Wireless Tech", type: "quad", items: [{ label: "Smartphones", img: smartphoneImg }] },
@@ -108,7 +124,7 @@ const gridRow2 = [
   { id: 8, title: "Deals on top categories", type: "quad", items: [{ label: "Books", img: booksImg }] }
 ];
 
-const carouselItems2 = [woodyImg, rubixImg, actionFiguresImg];
+const carouselItems2 = [woodyImg, rubixImg, actionFiguresImg, carToysImg, retroGamesImg, pokemonCardsImg, tvGameCatridgeImg];
 
 const gridRow3 = [
   { id: 9, title: "Level up your gaming", type: "quad", items: [{ label: "PC gaming", img: pcGamingImg }] },
@@ -129,9 +145,8 @@ const gridRow3 = [
       <ProductCarousel title="Top Sellers in Toys for you" products={carouselItems2} />
       <CategoryGrid cardData={gridRow3} />
 
-      {/* ==========================================================================
-         INTERACTIVE PRODUCT BUYING INTERFACE GRID AND FILTER PANEL
-         ========================================================================== */}
+      {/* = INTERACTIVE PRODUCT BUYING INTERFACE GRID AND FILTER PANEL = */}
+
       <div className="featured-products-section">
         <div className="products-filter-header">
           <h3>Trending Products For You</h3>

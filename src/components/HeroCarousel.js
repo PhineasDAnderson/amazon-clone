@@ -6,8 +6,6 @@ import fathersDayImg from '../Images/FathersDayDeal.jpg';
 import React, { useState, useEffect } from "react";
 // Imported CSS file for styling
 //import "./HeroCarousel.css";
-import bannerImg from '../Images/banner-image.jpg';
-import productImg from '../Images/product-image.png';
 
 // Defined the HeroCarousel component
 function HeroCarousel() {
