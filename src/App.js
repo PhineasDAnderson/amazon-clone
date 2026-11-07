@@ -1,40 +1,43 @@
 // src/App.js
+// React tools and the parts of the page this file puts together
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import NavBar from './components/NavBar';
 import HeroCarousel from './components/HeroCarousel';
 import MainPage from './components/MainPage';
+import CartItem from './components/CartItem';
 import Footer from './components/Footer';
 
 function App() {
-  // --- STATE SYSTEM SETUP ---
-  
-  // Sourced initial storage parameters out of client browser memories to establish persistent context state records.
+  // Cart starts with whatever is saved in localStorage, so items stay after a refresh
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem('amazon_clone_cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  // Determines structural UI branch routing layouts between storefront components and invoice summary listings.
+  // Which page to show: 'home' or 'cart'
   const [currentView, setCurrentView] = useState('home');
 
-  // Extracts current theme configurations from memory indexes to preserve selected aesthetic preferences.
+  // Dark mode starts with the saved choice from localStorage
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem('amazon_dark_mode') === 'true';
   });
 
-  // Controls parameters during transaction validation sequences.
+  // The shipping form details and the delivery option picked by the user
   const [shippingForm, setShippingForm] = useState({ name: '', address: '', deliveryType: 'standard' });
+
+  // Becomes true after the user places an order
   const [isOrdered, setIsOrdered] = useState(false);
 
-  // --- LOCAL MEMORY HOOKS ---
-  
-  // Updates browser memory arrays automatically following incremental transactional mutations.
+  // What the user has typed in the search bar
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Save the cart to localStorage every time it changes
   useEffect(() => {
     localStorage.setItem('amazon_clone_cart', JSON.stringify(cart));
   }, [cart]);
 
-  // Adjusts primary context body configurations while committing operational choices inside local records.
+  // Save dark mode and add or remove the dark class on the page
   useEffect(() => {
     localStorage.setItem('amazon_dark_mode', darkMode);
     if (darkMode) {
@@ -44,9 +47,7 @@ function App() {
     }
   }, [darkMode]);
 
-  // --- SHOPPING OPERATIONS ---
-  
-  // Appends incoming item payloads to baseline records or modifies item amounts upon identifier detection.
+  // Add a product to the cart. If it is already there, add 1 to its quantity
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
@@ -59,7 +60,7 @@ function App() {
     });
   };
 
-  // Updates operational item amounts dynamically while deleting references dropping below single units.
+  // Change an item's quantity by +1 or -1. If it reaches 0 it is removed
   const updateQuantity = (productId, delta) => {
     setCart((prevCart) =>
       prevCart
@@ -68,123 +69,177 @@ function App() {
     );
   };
 
-  // Traverses primary state indices to prune out items matching removal criteria parameters.
+  // Remove an item from the cart completely
   const removeFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
-  // Confirms informational credential submissions, resets checkout structures, and updates payment states.
-  const handleCheckoutSubmit = (e) => {
-    e.preventDefault();
-    if (shippingForm.name.trim() && shippingForm.address.trim()) {
-      setIsOrdered(true);
-      setCart([]);
-    }
-  };
-
-  // --- INVOICE ARITHMETIC ---
-  // Processes data models sequentially to compute accurate billing summaries across variable states.
+  // Work out the totals shown in the cart and order summary
   const totalItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const itemsSubtotalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const shippingCost = shippingForm.deliveryType === 'express' ? 15.00 : 0.00;
+  const itemsSubtotalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const shippingCost = shippingForm.deliveryType === 'express' ? 15.0 : 0.0;
   const estimatedOrderTotal = itemsSubtotalPrice + shippingCost;
 
-    // --- COMPONENT MASTER LAYOUT RETURN ---
-return (
-  <div className={`app ${darkMode ? 'dark-theme' : ''}`}>
-    <NavBar 
-      cartCount={totalItemsCount} 
-      setView={setCurrentView} 
-      darkMode={darkMode}
-      setDarkMode={setDarkMode}
-    />
+  // Place the order: save it in localStorage, show the confirmation and empty the cart
+  const handleCheckoutSubmit = (e) => {
+    e.preventDefault();
+    if (shippingForm.name.trim() === '' || shippingForm.address.trim() === '') {
+      return;
+    }
 
-      
+    const newOrder = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString(),
+      name: shippingForm.name,
+      address: shippingForm.address,
+      deliveryType: shippingForm.deliveryType,
+      items: cart,
+      total: estimatedOrderTotal
+    };
+
+    const oldOrders = JSON.parse(localStorage.getItem('amazon_clone_orders')) || [];
+    localStorage.setItem('amazon_clone_orders', JSON.stringify([...oldOrders, newOrder]));
+
+    setIsOrdered(true);
+    setCart([]);
+  };
+
+  // Go back to the home page and clear the confirmation message
+  const goBackToShopping = () => {
+    setCurrentView('home');
+    setIsOrdered(false);
+  };
+
+  return (
+    <div className={`app ${darkMode ? 'dark-theme' : ''}`}>
+      {/* Top bar with the logo, search bar, dark mode button and cart */}
+      <NavBar
+        cartCount={totalItemsCount}
+        setView={setCurrentView}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
+
       <main className="main-content-body">
+        {/* Home page shows the banner and products. Otherwise show the cart page */}
         {currentView === 'home' ? (
           <>
-            <HeroCarousel />
-            <MainPage addToCart={addToCart} />
+            {/* The banner is hidden while the user is searching */}
+            {searchTerm === '' && <HeroCarousel />}
+            <MainPage addToCart={addToCart} searchTerm={searchTerm} />
           </>
         ) : (
           <div className="cart-checkout-container">
-            <button className="back-to-shopping-btn" onClick={() => { setCurrentView('home'); setIsOrdered(false); }}>
+            {/* Button to go back to the home page */}
+            <button className="back-to-shopping-btn" onClick={goBackToShopping}>
               ← Continue Shopping
             </button>
 
+            {/* After placing an order show the confirmation, otherwise show the cart */}
             {isOrdered ? (
               <div className="checkout-success-panel">
                 <span className="success-checkmark-icon">✔</span>
                 <h2>Order Confirmed! Thank you for your purchase.</h2>
-                <p>Your package is being processed. This interface demonstrates a custom fake order confirmation layout.</p>
+                <p>Your order has been saved. This is a demo confirmation page.</p>
               </div>
             ) : (
               <div className="checkout-workspace-split">
-                
                 <div className="checkout-left-rail">
+                  {/* List of items in the cart, one CartItem for each */}
                   <div className="shopping-cart-list-card">
                     <h3>Shopping Cart Review</h3>
-                    {cart.length === 0 ? <p>Your Amazon Cart is empty.</p> : cart.map((cartItem) => {
-                      // Performs standard JavaScript object destructuring to extract values directly from mapped entries.
-                      const { id, title, price, img, quantity } = cartItem;
-                      return (
-                        <div key={id} className="cart-item-row-node">
-                          <div className="cart-item-thumbnail-frame"><img src={img} alt={title} /></div>
-                          <div className="cart-item-details-metadata">
-                            <h4>{title}</h4>
-                            <div className="cart-item-action-controls">
-                              <button onClick={() => updateQuantity(id, -1)} className="qty-adjustment-toggle">-</button>
-                              <span>{quantity}</span>
-                              <button onClick={() => updateQuantity(id, 1)} className="qty-adjustment-toggle">+</button>
-                              <button onClick={() => removeFromCart(id)} className="cart-delete-action-link">Delete</button>
-                            </div>
-                          </div>
-                          <div><strong>${(price * quantity).toFixed(2)}</strong></div>
-                        </div>
-                      );
-                    })}
+                    {cart.length === 0 ? (
+                      <p>Your Amazon Cart is empty.</p>
+                    ) : (
+                      cart.map((item) => (
+                        <CartItem
+                          key={item.id}
+                          id={item.id}
+                          title={item.title}
+                          price={item.price}
+                          img={item.img}
+                          quantity={item.quantity}
+                          updateQuantity={updateQuantity}
+                          removeFromCart={removeFromCart}
+                        />
+                      ))
+                    )}
                   </div>
 
+                  {/* Shipping form only shows when the cart has items */}
                   {cart.length > 0 && (
-                    <form className="shipping-credential-form" onSubmit={handleCheckoutSubmit}>
+                    <form id="shipping-form" className="shipping-credential-form" onSubmit={handleCheckoutSubmit}>
                       <h3>Shipping Address</h3>
                       <div className="form-input-field-group">
                         <label>Full Name</label>
-                        <input type="text" required value={shippingForm.name} onChange={(e) => setShippingForm({ ...shippingForm, name: e.target.value })} />
+                        <input
+                          type="text"
+                          required
+                          value={shippingForm.name}
+                          onChange={(e) => setShippingForm({ ...shippingForm, name: e.target.value })}
+                        />
                       </div>
                       <div className="form-input-field-group">
                         <label>Street Address</label>
-                        <input type="text" required value={shippingForm.address} onChange={(e) => setShippingForm({ ...shippingForm, address: e.target.value })} />
+                        <input
+                          type="text"
+                          required
+                          value={shippingForm.address}
+                          onChange={(e) => setShippingForm({ ...shippingForm, address: e.target.value })}
+                        />
                       </div>
                     </form>
                   )}
                 </div>
 
+                {/* Order summary with totals, delivery option and the place order button */}
                 <div className="checkout-right-order-summary-rail">
                   <div className="summary-calculation-card">
                     <h3>Order Summary</h3>
-                    <div className="calculation-invoice-row"><span>Items ({totalItemsCount}):</span><span>${itemsSubtotalPrice.toFixed(2)}</span></div>
-                    <div className="calculation-invoice-row"><span>Delivery:</span><span>{shippingCost === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`}</span></div>
-                    <div className="calculation-invoice-row total-row-highlight"><span>Order Total:</span><span>${estimatedOrderTotal.toFixed(2)}</span></div>
-                    
+                    <div className="calculation-invoice-row">
+                      <span>Items ({totalItemsCount}):</span>
+                      <span>${itemsSubtotalPrice.toFixed(2)}</span>
+                    </div>
+                    <div className="calculation-invoice-row">
+                      <span>Delivery:</span>
+                      <span>{shippingCost === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`}</span>
+                    </div>
+                    <div className="calculation-invoice-row total-row-highlight">
+                      <span>Order Total:</span>
+                      <span>${estimatedOrderTotal.toFixed(2)}</span>
+                    </div>
+
+                    {/* Dropdown to choose standard or express delivery */}
                     <div style={{ marginTop: '15px' }}>
                       <label style={{ fontSize: '13px', fontWeight: 'bold' }}>Shipping Speed:</label>
-                      <select style={{ width: '100%', padding: '5px', marginTop: '5px' }} value={shippingForm.deliveryType} onChange={(e) => setShippingForm({ ...shippingForm, deliveryType: e.target.value })}>
+                      <select
+                        style={{ width: '100%', padding: '5px', marginTop: '5px' }}
+                        value={shippingForm.deliveryType}
+                        onChange={(e) => setShippingForm({ ...shippingForm, deliveryType: e.target.value })}
+                      >
                         <option value="standard">Standard Shipping (FREE)</option>
                         <option value="express">Express Delivery (+$15.00)</option>
                       </select>
                     </div>
 
-                    <button className="place-fake-order-cta-btn" disabled={cart.length === 0} onClick={handleCheckoutSubmit}>
+                    {/* Submits the shipping form and places the order */}
+                    <button
+                      type="submit"
+                      form="shipping-form"
+                      className="place-fake-order-cta-btn"
+                      disabled={cart.length === 0}
+                    >
                       Place Your Order
                     </button>
                   </div>
                 </div>
-
               </div>
             )}
           </div>
         )}
+        {/* Footer shown on every page */}
         <Footer />
       </main>
     </div>

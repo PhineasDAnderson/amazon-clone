@@ -1,195 +1,156 @@
-import React from 'react';
-//import './Footer.css';
+// src/components/Footer.js
+import React from "react";
+import amazonLogo from "../Images/amazon-logo.png";
 
-/* Global structural component managing the hierarchical site footer directory layers */
+// The four columns of links at the top of the footer. Each column has a title and a list of links
+const footerColumns = [
+  {
+    title: "Get to Know Us",
+    links: [
+      "Careers",
+      "Blog",
+      "About Amazon",
+      "Investor Relations",
+      "Amazon Devices",
+      "Amazon Science",
+    ],
+  },
+  {
+    title: "Make Money with Us",
+    links: [
+      "Sell products on Amazon",
+      "Sell on Amazon Business",
+      "Sell apps on Amazon",
+      "Become an Affiliate",
+      "Advertise Your Products",
+      "Self-Publish with Us",
+      "Host an Amazon Hub",
+      "› See More Make Money with Us",
+    ],
+  },
+  {
+    title: "Amazon Payment Products",
+    links: [
+      "Amazon Business Card",
+      "Shop with Points",
+      "Reload Your Balance",
+      "Amazon Currency Converter",
+    ],
+  },
+  {
+    title: "Let Us Help You",
+    links: [
+      "Amazon and COVID-19",
+      "Your Account",
+      "Your Orders",
+      "Shipping Rates & Policies",
+      "Returns & Replacements",
+      "Manage Your Content and Devices",
+      "Help",
+    ],
+  },
+];
+
+// The list of Amazon services in the dark part of the footer. Each has a name and a short line of text
+const footerServices = [
+  { name: "Amazon Music", text: "Stream millions of songs" },
+  { name: "Amazon Ads", text: "Reach customers wherever they spend their time" },
+  { name: "6pm", text: "Score deals on fashion brands" },
+  { name: "AbeBooks", text: "Books, art & collectibles" },
+  { name: "ACX", text: "Audiobook Publishing Made Easy" },
+  { name: "Sell on Amazon", text: "Start a Selling Account" },
+  { name: "Veeqo", text: "Shipping Software Inventory Management" },
+  { name: "Amazon Business", text: "Everything For Your Business" },
+  { name: "AmazonGlobal", text: "Ship Orders Internationally" },
+  { name: "Amazon Web Services", text: "Scalable Cloud Computing Services" },
+  { name: "Audible", text: "Listen to Books & Original Audio Performances" },
+  { name: "Box Office Mojo", text: "Find Movie Box Office Data" },
+  { name: "Goodreads", text: "Book reviews & recommendations" },
+  { name: "IMDb", text: "Movies, TV & Celebrities" },
+  { name: "IMDbPro", text: "Get Info Entertainment Professionals Need" },
+  { name: "Kindle Direct Publishing", text: "Indie Digital & Print Publishing Made Easy" },
+  { name: "Prime Video Direct", text: "Video Distribution Made Easy" },
+  { name: "Shopbop", text: "Designer Fashion Brands" },
+  { name: "Woot!", text: "Deals and Shenanigans" },
+  { name: "Zappos", text: "Shoes & Clothing" },
+  { name: "Ring", text: "Smart Home Security Systems" },
+  { name: "eero WiFi", text: "Stream 4K Video in Every Room" },
+  { name: "Blink", text: "Smart Security for Every Home" },
+  { name: "Neighbors App", text: "Real-Time Crime & Safety Alerts" },
+  { name: "PillPack", text: "Pharmacy Simplified" },
+];
+
+// The footer shown at the bottom of every page
 function Footer() {
-  
-  /* Programmatically scrolls the browser viewport context smoothly to the page ceiling */
-  const handleScrollToCeiling = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  // Scroll smoothly back to the top of the page
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <footer className="footer-container">
-      
-      {/* LAYER 1: BACK TO TOP NAVIGATION STRIP */}
-      <div className="footer-back-to-top" onClick={handleScrollToCeiling}>
+      {/* Back to top bar */}
+      <div className="footer-back-to-top" onClick={scrollToTop}>
         <span>Back to top</span>
       </div>
 
-      {/* LAYER 2: PRIMARY DIRECTORY LINKS */}
+      {/* The four link columns. One column is made for each item in footerColumns */}
       <div className="footer-links-row">
-        
-        <div className="footer-column">
-          <h3>Get to Know Us</h3>
-          <ul>
-            <li><a href="#careers">Careers</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#about">About Amazon</a></li>
-            <li><a href="#relations">Investor Relations</a></li>
-            <li><a href="#devices">Amazon Devices</a></li>
-            <li><a href="#science">Amazon Science</a></li>
-          </ul>
-        </div>
-
-        <div className="footer-column">
-          <h3>Make Money with Us</h3>
-          <ul>
-            <li><a href="#sell">Sell products on Amazon</a></li>
-            <li><a href="#sell-business">Sell on Amazon Business</a></li>
-            <li><a href="#sell-apps">Sell apps on Amazon</a></li>
-            <li><a href="#affiliate">Become an Affiliate</a></li>
-            <li><a href="#advertise">Advertise Your Products</a></li>
-            <li><a href="#publish">Self-Publish with Us</a></li>
-            <li><a href="#host">Host an Amazon Hub</a></li>
-            <li><a href="#see-more">› See More Make Money with Us</a></li>
-          </ul>
-        </div>
-
-        <div className="footer-column">
-          <h3>Amazon Payment Products</h3>
-          <ul>
-            <li><a href="#cards">Amazon Business Card</a></li>
-            <li><a href="#points">Shop with Points</a></li>
-            <li><a href="#reload">Reload Your Balance</a></li>
-            <li><a href="#currency">Amazon Currency Converter</a></li>
-          </ul>
-        </div>
-
-        <div className="footer-column">
-          <h3>Let Us Help You</h3>
-          <ul>
-            <li><a href="#covid">Amazon and COVID-19</a></li>
-            <li><a href="#account">Your Account</a></li>
-            <li><a href="#orders">Your Orders</a></li>
-            <li><a href="#shipping">Shipping Rates & Policies</a></li>
-            <li><a href="#returns">Returns & Replacements</a></li>
-            <li><a href="#manage">Manage Your Content and Devices</a></li>
-            <li><a href="#help">Help</a></li>
-          </ul>
-        </div>
-
+        {footerColumns.map((column) => (
+          <div key={column.title} className="footer-column">
+            <h3>{column.title}</h3>
+            <ul>
+              {column.links.map((link) => (
+                <li key={link}>
+                  <a href={`#${link}`}>{link}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
-      {/* LAYER 3: BRAND AND REGIONAL SETTINGS PANEL */}
+      {/* Logo and the language, currency and country buttons */}
       <div className="footer-brand-panel">
         <div className="footer-logo-frame">
-          <img src="/images/amazon-logo.png" alt="Amazon Footer Logo" />
+          <img src={amazonLogo} alt="Amazon Logo" />
         </div>
         <div className="footer-regional-selectors">
-          <span className="footer-setting-pill">🌐 English <span>🌐</span></span>
+          <span className="footer-setting-pill">🌐 English</span>
           <span className="footer-setting-pill">$ USD - U.S. Dollar</span>
           <span className="footer-setting-pill">🇺🇸 United States</span>
         </div>
       </div>
 
-      {/* LAYER 4: DETAILED SUB-SERVICES MICRO-GRID */}
+      {/* The list of Amazon services. One box is made for each item in footerServices */}
       <div className="footer-services-dark-grid">
         <div className="footer-services-inner">
-          
-          <div className="service-node">
-            <a href="#music"><strong>Amazon Music</strong><span>Stream millions of songs</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#ads"><strong>Amazon Ads</strong><span>Reach customers wherever they spend their time</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#6pm"><strong>6pm</strong><span>Score deals on fashion brands</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#abebooks"><strong>AbeBooks</strong><span>Books, art & collectibles</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#acx"><strong>ACX</strong><span>Audiobook Publishing Made Easy</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#sell-amzn"><strong>Sell on Amazon</strong><span>Start a Selling Account</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#veeqo"><strong>Veeqo</strong><span>Shipping Software Inventory Management</span></a>
-          </div>
-
-          <div className="service-node">
-            <a href="#business"><strong>Amazon Business</strong><span>Everything For Your Business</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#global"><strong>AmazonGlobal</strong><span>Ship Orders Internationally</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#aws"><strong>Amazon Web Services</strong><span>Scalable Cloud Computing Services</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#audible"><strong>Audible</strong><span>Listen to Books & Original Audio Performances</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#boxoffice"><strong>Box Office Mojo</strong><span>Find Movie Box Office Data</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#goodreads"><strong>Goodreads</strong><span>Book reviews & recommendations</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#imdb"><strong>IMDb</strong><span>Movies, TV & Celebrities</span></a>
-          </div>
-
-          <div className="service-node">
-            <a href="#imdbpro"><strong>IMDbPro</strong><span>Get Info Entertainment Professionals Need</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#kdp"><strong>Kindle Direct Publishing</strong><span>Indie Digital & Print Publishing Made Easy</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#prime-video"><strong>Prime Video Direct</strong><span>Video Distribution Made Easy</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#shopbop"><strong>Shopbop</strong><span>Designer Fashion Brands</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#woot"><strong>Woot!</strong><span>Deals and Shenanigans</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#zappos"><strong>Zappos</strong><span>Shoes & Clothing</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#ring"><strong>Ring</strong><span>Smart Home Security Systems</span></a>
-          </div>
-
-          <div className="service-node">
-            <a href="#eero"><strong>eero WiFi</strong><span>Stream 4K Video in Every Room</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#blink"><strong>Blink</strong><span>Smart Security for Every Home</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#neighbors"><strong>Neighbors App</strong><span>Real-Time Crime & Safety Alerts</span></a>
-          </div>
-          <div className="service-node">
-            <a href="#pillpack"><strong>PillPack</strong><span>Pharmacy Simplified</span></a>
-          </div>
-          <div className="service-node empty-node"></div>
-          <div className="service-node empty-node"></div>
-          <div className="service-node empty-node"></div>
-
+          {footerServices.map((service) => (
+            <div key={service.name} className="service-node">
+              <a href={`#${service.name}`}>
+                <strong>{service.name}</strong>
+                <span>{service.text}</span>
+              </a>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* LAYER 5: LEGAL FOOTER AND COMPLIANCE COMPONENT */}
+      {/* Legal links and copyright at the very bottom */}
       <div className="footer-legal-base">
         <div className="footer-legal-links">
           <a href="#conditions">Conditions of Use</a>
           <a href="#privacy">Privacy Notice</a>
           <a href="#health-privacy">Consumer Health Data Privacy Disclosure</a>
-          <a href="#ad-choices" className="privacy-choices-link">
-            Your Ads Privacy Choices <span className="privacy-toggle-icon">☑</span>
+          <a href="#ad-choices">
+            Your Ads Privacy Choices{" "}
+            <span className="privacy-toggle-icon">☑</span>
           </a>
         </div>
         <p className="footer-copyright">
           © 1996-2026, Amazon.com, Inc. or its affiliates
         </p>
       </div>
-
     </footer>
   );
 }

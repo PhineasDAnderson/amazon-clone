@@ -1,24 +1,23 @@
 // src/components/CategoryGrid.js
-import React from 'react';
-//import './CategoryGrid.css';
+import React from "react";
 
+// A row of white category cards. MainPage gives it the list of cards to show
 function CategoryGrid({ cardData }) {
   return (
     <div className="grid-container-layout">
+      {/* One card for each item in the list */}
       {cardData.map((card) => (
         <div key={card.id} className="grid-card-base">
-          {/* Universal title header segment */}
           <h2 className="grid-card-heading">{card.title}</h2>
 
-          {/* Conditional layout check: Renders a single image panel */}
-          {card.type === 'single' ? (
+          {/* A "single" card shows one big picture, other cards show small pictures with labels */}
+          {card.type === "single" ? (
             <div className="category-card-single-box">
               <img src={card.img} alt={card.title} />
             </div>
           ) : (
-            /* Conditional layout check: Renders a 4-quadrant mini block matrix */
             <div className="quad-grid-container">
-              {card.items && card.items.map((item, index) => (
+              {card.items.map((item, index) => (
                 <div key={index} className="quad-item-box">
                   <div className="quad-image-frame">
                     <img src={item.img} alt={item.label} />
@@ -29,7 +28,7 @@ function CategoryGrid({ cardData }) {
             </div>
           )}
 
-          {/* Action navigation link anchored cleanly below the visual assets */}
+          {/* Link text at the bottom of the card */}
           <span className="category-card-link">{card.linkText}</span>
         </div>
       ))}
